@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 @Service
-public class FacultyService {
+public class FacultyService implements FacultyInterface{
 
     private final HashMap<Long, Faculty> faculties = new HashMap<>();
     private long count = 0;
@@ -20,20 +20,20 @@ public class FacultyService {
         return faculty;
     }
 
-    public Faculty findFaculty(long id) {
+    public Faculty readFaculty(long id) {
         return faculties.get(id);
     }
 
-    public Faculty editFaculty(Faculty faculty) {
-        if (!faculties.containsKey(faculty.getId())) {
+    public Faculty updateFaculty(long id, Faculty faculty) {
+        if (!faculties.containsKey(id)) {
             return null;
         }
-        faculties.put(faculty.getId(), faculty);
+        faculties.put(id, faculty);
         return faculty;
     }
 
-    public Faculty deleteFaculty(long id) {
-        return faculties.remove(id);
+    public void deleteFaculty(long id) {
+        faculties.remove(id);
     }
 
     public Collection<Faculty> findByColor(String color) {

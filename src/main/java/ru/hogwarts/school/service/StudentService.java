@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 @Service
-public class StudentService {
+public class StudentService implements StudentInterface{
 
     private final HashMap<Long, Student> students = new HashMap<>();
     private long count = 0;
@@ -20,20 +20,24 @@ public class StudentService {
         return student;
     }
 
-    public Student findStudentById(long id) {
+    public Student readStudentById(long id) {
         return students.get(id);
     }
 
-    public Student editStudent(Student student) {
-        if (!students.containsKey(student.getId())) {
+    public Student updateStudent(long id, Student student) {
+        if (!students.containsKey(id)) {
             return null;
         }
-        students.put(student.getId(), student);
+        students.put(id, student);
         return student;
     }
 
-    public Student deleteStudent(long id) {
-        return students.remove(id);
+    public void deleteStudent(long id) {
+        students.remove(id);
+    }
+
+    public Collection<Student> getAllStudents() {
+        return students.values();
     }
 
     public Collection<Student> findByAge(int age) {
